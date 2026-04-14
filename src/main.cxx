@@ -136,12 +136,15 @@ int main()
 
             curve.Draw2D(0.01);
             Vector3D spriteLocation = Vector3D(0.0, 0.0, 500);
-            
+            Vector3D tangentLine = Vector3D(0.0, 0.0, 500);
             
             curve.getGlobalCalmullRomPoint(t, &spriteLocation);
+            curve.getGlobalCalmullRomPointTangent(t, &tangentLine);
             spriteLocation.Z = 500.0;
 
+            SRL::Scene2D::DrawLine(spriteLocation, tangentLine, HighColor::Colors::Yellow, 500);
             SRL::Scene2D::DrawSprite(textureIndex, spriteLocation);
+
 
            
 

@@ -65,6 +65,37 @@ class catmullrom
                 res->Z = (res_aux[0] * this->control_points[indices[0]].Z) + (res_aux[1] * this->control_points[indices[1]].Z) + (res_aux[2] * this->control_points[indices[2]].Z);
         }
 
+        void getGlobalCalmullRomPointTangent(Fxp gt, Vector3D *res)
+        {
+                // 
+                Fxp t = gt * this->control_points_size;
+                int16_t index = t.Floor().As<int16_t>();        //which segment
+
+                t = t - index;  // where withing the segment
+
+                int indices[4] = {0};
+                indices[0] = (index + this->control_points_size-1)%this->control_points_size;
+                indices[1] = (indices[0] + 1) % this->control_points_size;
+                indices[2] = (indices[1] + 1) % this->control_points_size;
+                indices[3] = (indices[2] + 1) % this->control_points_size;
+
+                getCalmullRomPointTangent(t, indices, res);
+        }
+
+         void getCalmullRomPointTangent(Fxp t, int * indices, Vector3D * res)
+        {
+                Fxp res_aux[4] = {0.0};
+
+                for(int i = 0 ; i < 4 ; i++)
+                {
+                        res_aux[i] = (2 * t.Pow(2)) * this->m[0][i] + (2 * t) * this->m[1][i] + this->m[2][i];
+                }
+                
+                res->X = (res_aux[0] * this->control_points[indices[0]].X) + (res_aux[1] * this->control_points[indices[1]].X) + (res_aux[2] * this->control_points[indices[2]].X);
+                res->Y = (res_aux[0] * this->control_points[indices[0]].Y) + (res_aux[1] * this->control_points[indices[1]].Y) + (res_aux[2] * this->control_points[indices[2]].Y);
+                res->Z = (res_aux[0] * this->control_points[indices[0]].Z) + (res_aux[1] * this->control_points[indices[1]].Z) + (res_aux[2] * this->control_points[indices[2]].Z);
+        }
+
         void Draw2D(Fxp step, Fxp from = 0.0, Fxp to = 1.0)
         {
                 Fxp gtt = from;
