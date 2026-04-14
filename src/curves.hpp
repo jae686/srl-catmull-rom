@@ -65,12 +65,12 @@ class catmullrom
                 res->Z = (res_aux[0] * this->control_points[indices[0]].Z) + (res_aux[1] * this->control_points[indices[1]].Z) + (res_aux[2] * this->control_points[indices[2]].Z);
         }
 
-        void Draw2D(Fxp step)
+        void Draw2D(Fxp step, Fxp from = 0.0, Fxp to = 1.0)
         {
-                Fxp gtt = 0;
+                Fxp gtt = from;
                 Vector3D res = Vector3D(0.0);
                 
-                for( ; gtt < 1 ; gtt += step)
+                for( ; gtt < to ; gtt += step)
                 {
                         getGlobalCalmullRomPoint(gtt, &res);
                         Vector2D r = Vector2D(res.X, res.Y);
