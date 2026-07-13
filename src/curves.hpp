@@ -88,7 +88,7 @@ class catmullrom
 
                 for(int i = 0 ; i < 4 ; i++)
                 {
-                        res_aux[i] = (2 * t.Pow(2)) * this->m[0][i] + (2 * t) * this->m[1][i] + this->m[2][i];
+                        res_aux[i] = (3 * t.Pow(2)) * this->m[0][i] + (2 * t) * this->m[1][i] + this->m[2][i];
                 }
                 
                 res->X = (res_aux[0] * this->control_points[indices[0]].X) + (res_aux[1] * this->control_points[indices[1]].X) + (res_aux[2] * this->control_points[indices[2]].X);
